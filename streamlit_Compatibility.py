@@ -31,7 +31,7 @@ with st.sidebar:
 
 def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign):
     # Customize the prompt based on your requirements
-    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {user_personality_type} and a {user_zodiac_sign}. The other person is a {their_personality_type} and a {their_zodiac_sign}. Return a phase defining the compatibility depending on this list: 1. If there are only minor challenges and many stong strengths, return 'You guys could rock the world together!💓'. 2. If there are some average challenges and some average strengths, return 'You guys could give it a go!💛'. 3. If there are  major challenges and not stong strengths, return 'This seems unlikely...😿'. Return a list of strengths, challenges, and potential dynamics. Also return some additional tips."
+    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {user_personality_type} and a {user_zodiac_sign}. The other person is a {their_personality_type} and a {their_zodiac_sign}. First, show a phase defining the compatibility depending on this list: 1. If there are only minor challenges and many stong strengths, return 'You guys could rock the world together!💓'. 2. If there are some average challenges and some average strengths, return 'You guys could give it a go!💛'. 3. If there are  major challenges and not stong strengths, return 'This seems unlikely...😿'. Next, return a table of strengths, challenges, and potential dynamics. Also return some additional tips."
 
     # Call OpenAI API for recommendation
     response = openai.chat.completions.create(
@@ -49,7 +49,7 @@ def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_person
 
 # Streamlit part
 
-st.title("ํYour compatibility with your crush👀")
+st.title("Your compatibility with your crush👀")
 st.markdown("This app will analyze the compatibility between you and someone that you have chosen based on personality types and zodiac signs.💌")
 
     # User input
