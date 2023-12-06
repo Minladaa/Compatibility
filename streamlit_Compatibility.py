@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import pandas as pd
 
 st.cache_data.clear()
 
