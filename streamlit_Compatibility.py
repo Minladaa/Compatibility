@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
 import pandas as pd
+import json
 
 st.cache_data.clear()
 
@@ -32,7 +33,9 @@ with st.sidebar:
 
 def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign):
     # Customize the prompt based on your requirements
-    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {user_personality_type} and a {user_zodiac_sign}. The other person is a {their_personality_type} and a {their_zodiac_sign}. First, show a phase defining the compatibility depending on this list: 1. If there are only minor challenges and many stong strengths, return 'You guys could rock the world together!💓'. 2. If there are some average challenges and some average strengths, return 'You guys could give it a go!💛'. 3. If there are  major challenges and not stong strengths, return 'This seems unlikely...😿'. Next, return a list of strengths, challenges, and potential dynamics. Also return some additional tips."
+    prompt = f"You are a compatibility analyzer bot. You will analze the compatibility of the user and the other person based on their personality types and zodiac signs. The user is an {user_personality_type} and a {user_zodiac_sign}. The other person is an {their_personality_type} and a {their_zodiac_sign}. 
+    List the analytics in a JSON array.
+    First, return one of these phases defining the compatibility: 1. 'You guys could rock the world together!💓' If there are only minor challenges and many stong strengths,. 2. 'You guys could give it a go!💛'If there are some average challenges and some average strengths. 3. 'This seems unlikely...😿' If there are  major challenges and not so stong strengths. Next, return strengths. Next, return challenges. Next, return potential dynamics. Lastly, return some additional tips."
 
     # Call OpenAI API for recommendation
     response = openai.chat.completions.create(
@@ -46,7 +49,12 @@ def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_person
         ]
     )
     
-    return response.choices[0].message.content
+    analytics_dictionary = response.choices[0].message.content
+    return analytics_dictionary
+
+sd = json.loads(analytics_dictionary)
+analytics_df = pd.DataFrame.from_dict(sd)
+analytics_df
 
 # Streamlit part
 
@@ -67,6 +75,6 @@ their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemi
 if st.button("Tell me the compatibility!"):
     if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
         Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
-        st.success(f"Analyzed the compatibility: {Analytics}")
+        st.success(f"Analyzed the compatibility: {analytics_df}")
     else:
         st.warning("Tell me about yourself and the other person first!")
