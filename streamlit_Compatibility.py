@@ -3,6 +3,8 @@ import openai
 
 st.cache_data.clear()
 
+# OpenAI part
+
 if "openai_api_key" not in st.session_state:
     st.session_state.openai_api_key = ""
 
@@ -25,11 +27,17 @@ with st.sidebar:
     if api_key_form_submitted:
         st.session_state.openai_api_key = openai_api_key
         openai.api_key = st.session_state.openai_api_key
-        st.success("Your OpenAI API key was subbitted successfully.")
+        st.success("Your OpenAI API key was submitted successfully.")
 
-def generate_flower_recommendation(occasion, recipient_name, favorite_color, relationship):
+def compatibility_analyzer(users_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign):
     # Customize the prompt based on your requirements
-    prompt = f"Recommend me a flower that are suitable for {occasion} and {favorite_color} for {recipient_name} who is my {relationship}. and write 5 notes for me to tell {recipient_name} why I chose this flower for this {occasion}."
+    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {users personality type} and a {user zodiac sign}. The other person is a {their personality type} and a {their zodiac sign}.
+Return a phase defining the compatibility depending on this list:
+1. If there are only minor challenges and many stong strengths, return 'You guys could rock the world together!💓'. 
+2. If there are some average challenges and some average strengths, return 'You guys could give it a go!💛'.
+3. If there are  major challenges and not stong strengths, return 'This seems unlikely...😿'.
+Return a list of strengths, challenges, and potential dynamics.
+Also return some additional tips."
 
     # Call OpenAI API for recommendation
     response = openai.chat.completions.create(
@@ -38,12 +46,32 @@ def generate_flower_recommendation(occasion, recipient_name, favorite_color, rel
         top_p=0.7,
         max_tokens=450,
         messages=[
-            {"role": "system", "content": "You are a flowers recommendation bot. You will help users find the best flowers for their important person."},
-            {"role": "user", "content": f"You will help users find the best flowers and make notes from the context:{prompt}."},
+            {"role": "system", "content": "You are a compatibility analyzer bot. You will analze the compatibility of the user and the other person based on their personality types and zodiac signs."},
+            {"role": "user", "content": f"You will tell users the analytics of the compatibility between them and the other person from the context:{prompt}."},
         ]
     )
     
     return response.choices[0].message.content
 
-st.title("Compatibility")
+# Streamlit part
 
+st.title("ํYour compatibility with your crush👀")
+st.markdown("This app will analyze the compatibility between you and someone that you have chosen based on personality types and zodiac signs.💌")
+
+    # User input
+st.markdown("## Tell me about yourself.💫")
+users_personality_type = st.selectbox("Your personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
+st.write("If you don't know your personality type or want to know more about your personality type,\n check out this [link](https://www.16personalities.com/)")
+user_zodiac_sign = st.selectbox("Your zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
+st.write("If you don't know your zodiac sign or want to know more about your zodiac sign,\n check out this [link](https://www.zodiacsign.com/)")
+st.markdown("## Now, tell me about the other person.👀")
+their_personality_type = st.selectbox("Their personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
+their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
+
+    # Analyze the compatibility
+if st.button("Tell me the compatibility!"):
+    if users_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
+        Analytics = compatibility_analyzer(users_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
+        st.success(f"Analyzed the compatibility: {Analytics}")
+    else:
+        st.warning("Tell me about yourself and the other person first!")
