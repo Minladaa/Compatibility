@@ -31,7 +31,7 @@ with st.sidebar:
 
 def compatibility_analyzer(users_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign):
     # Customize the prompt based on your requirements
-    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {users personality type} and a {user zodiac sign}. The other person is a {their personality type} and a {their zodiac sign}.
+    prompt = f"Analyze the compatibility between the user and the other person. Based on their personality types and zodiac signs. The user is a {users personality type} and a {user zodiac sign}. The other person is a {their personality type} and a {their zodiac sign}."
 Return a phase defining the compatibility depending on this list:
 1. If there are only minor challenges and many stong strengths, return 'You guys could rock the world together!💓'. 
 2. If there are some average challenges and some average strengths, return 'You guys could give it a go!💛'.
