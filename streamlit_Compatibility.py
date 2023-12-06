@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Set the title of the website
-st.title("Compatibility")
-
+st.header("Compatibility")
+"An example"
 
