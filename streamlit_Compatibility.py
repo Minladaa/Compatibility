@@ -1,4 +1,5 @@
 import streamlit as st
+import openai
 
 st.cache_data.clear()
 
