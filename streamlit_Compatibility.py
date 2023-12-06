@@ -64,8 +64,8 @@ their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemi
 
     # Analyze the compatibility
 if st.button("Tell me the compatibility!"):
-    if users_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
-        Analytics = compatibility_analyzer(users_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
+    if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
+        Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
         st.success(f"Analyzed the compatibility: {Analytics}")
     else:
         st.warning("Tell me about yourself and the other person first!")
