@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
 import pandas as pd
+import numpy as np
 
 st.cache_data.clear()
 
@@ -32,7 +33,7 @@ with st.sidebar:
 
 def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign):
     # Customize the prompt based on your requirements
-    prompt = f"You are a compatibility analyzer bot. You will analze the compatibility of the user and the other person based on their personality types and zodiac signs. The user is an {user_personality_type} and a {user_zodiac_sign}. The other person is an {their_personality_type} and a {their_zodiac_sign}. First, return one of these phases defining the compatibility: 1. 'You guys could rock the world together!💓' If there are minor challenges and many stong strengths. 2. 'You guys could give it a go!💛'If there are some average challenges and some average strengths. 3. 'This seems unlikely...😿' If their personalities don't get along, there are  major challenges and not so stong strengths. Next, return strengths. Next, return challenges. Next, return potential dynamics. Lastly, return some personalized tips."
+    prompt = f"You are a compatibility analyzer bot. You will analze the compatibility of the user and the other person based on their personality types and zodiac signs. The user is an {user_personality_type} and a {user_zodiac_sign}. The other person is an {their_personality_type} and a {their_zodiac_sign}. List one field of the analytics per line. First, return one of these phases defining the compatibility: 1. 'You guys could rock the world together!💓' If there are minor challenges and stong strengths. 2. 'You guys could give it a go!💛'If there are some average challenges and some average strengths. 3. 'This seems unlikely...😿' If their personalities don't get along and clash with each other, there are  major challenges and not so stong strengths. Next, return strengths. Next, return challenges. Next, return potential dynamics. Lastly, return some personalized tips."
 
     # Call OpenAI API for recommendation
     response = openai.chat.completions.create(
@@ -66,9 +67,27 @@ their_personality_type = st.selectbox("Their personality type:", ["ISTJ", "ISFJ"
 their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
 
     # Analyze the compatibility
+#if st.button("Tell me the compatibility!"):
+#    if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
+#        Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
+#        st.success(f"Analyzed the compatibility: {Analytics}")
+#    else:
+#        st.warning("Tell me about yourself and the other person first!")
+
 if st.button("Tell me the compatibility!"):
     if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
         Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
-        st.success(f"Analyzed the compatibility: {Analytics}")
+        
+        # Split the recommendation into lines
+        lines = Analytics.split('\n')
+
+        # Create a dataframe for better formatting
+        df = pd.DataFrame({"Analytics": lines})
+
+        # Convert the dataframe to HTML and remove the index column
+        html_table = df.to_html(index=False, escape=False)
+
+        # Display the HTML table
+        st.write(html_table, unsafe_allow_html=True)
     else:
         st.warning("Tell me about yourself and the other person first!")
