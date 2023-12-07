@@ -63,6 +63,7 @@ st.write("If you don't know your personality type or want to know more about you
 user_zodiac_sign = st.selectbox("Your zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
 st.write("If you don't know your zodiac sign or want to know more about your zodiac sign,\n check out this [link](https://www.zodiacsign.com/)")
 st.markdown("## Now, tell me about the other person.👀")
+st.write("If you don't know their personality type or zodiac sign, you can guess it based on their behavior and their birthday. Or... you can ask them!😉")
 their_personality_type = st.selectbox("Their personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
 their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
 
