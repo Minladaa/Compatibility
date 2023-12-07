@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 import pandas as pd
-import numpy as np
+
 
 st.cache_data.clear()
 
@@ -66,28 +66,14 @@ st.markdown("## Now, tell me about the other person.👀")
 their_personality_type = st.selectbox("Their personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
 their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
 
-    # Analyze the compatibility
-#if st.button("Tell me the compatibility!"):
-#    if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
-#        Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
-#        st.success(f"Analyzed the compatibility: {Analytics}")
-#    else:
-#        st.warning("Tell me about yourself and the other person first!")
-
+    # Show the results
 if st.button("Tell me the compatibility!"):
     if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
         Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
-        
-        # Split the recommendation into lines
+# Make a table part
         lines = Analytics.split('\n')
-
-        # Create a dataframe for better formatting
         df = pd.DataFrame({"Analytics": lines})
-
-        # Convert the dataframe to HTML and remove the index column
         html_table = df.to_html(index=False, escape=False)
-
-        # Display the HTML table
         st.write(html_table, unsafe_allow_html=True)
     else:
         st.warning("Tell me about yourself and the other person first!")
