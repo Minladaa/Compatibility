@@ -69,10 +69,10 @@ their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemi
     # Show the results
 if st.button("Tell me the compatibility!"):
     if user_personality_type and user_zodiac_sign and their_personality_type and their_zodiac_sign:
-        Analytics = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
+        Compatibility = compatibility_analyzer(user_personality_type, user_zodiac_sign, their_personality_type, their_zodiac_sign)
 # Make a table part
-        lines = Analytics.split('\n')
-        df = pd.DataFrame({"Analytics": lines})
+        lines = Compatibility.split('\n')
+        df = pd.DataFrame({"Compatibility": lines})
         html_table = df.to_html(index=False, escape=False)
         st.write(html_table, unsafe_allow_html=True)
     else:
