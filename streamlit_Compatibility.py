@@ -54,16 +54,17 @@ def compatibility_analyzer(user_personality_type, user_zodiac_sign, their_person
 # Streamlit part
 
 st.title("Your compatibility with your crush👀")
-st.markdown("This app will analyze the compatibility between you and someone that you have chosen based on personality types and zodiac signs.💌")
+st.markdown("Want to know if you and your crush are compatible? Or if you and that one person can get along?🤔")
+st.markdown("This app will analyze the compatibility between you and someone that you have chosen based on personality types and zodiac signs!💌")
 
     # User input
-st.markdown("## Tell me about yourself.💫")
+st.markdown("## First, tell me about yourself.💫")
 user_personality_type = st.selectbox("Your personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
-st.write("If you don't know your personality type or want to know more about your personality type,\n check out this [link](https://www.16personalities.com/)")
+st.write("If you don't know your personality type or want to know more about your personality type, check out this [link](https://www.16personalities.com/)")
 user_zodiac_sign = st.selectbox("Your zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
-st.write("If you don't know your zodiac sign or want to know more about your zodiac sign,\n check out this [link](https://www.zodiacsign.com/)")
+st.write("If you don't know your zodiac sign or want to know more about your zodiac sign, check out this [link](https://www.zodiacsign.com/)")
 st.markdown("## Now, tell me about the other person.👀")
-st.write("If you don't know their personality type or zodiac sign, you can guess it based on their behavior and their birthday. Or... you can ask them!😉")
+st.write("If you don't know their personality type or zodiac sign, you can guess it based on their behavior and their birthday. Or... take this chance to go ask them!😉")
 their_personality_type = st.selectbox("Their personality type:", ["ISTJ", "ISFJ", "INFJ", "INTJ", "ISTP", "ISFP", "INFP", "INTP", "ESTP", "ESFP", "ENFP", "ENTP", "ESTJ", "ESFJ", "ENFJ", "ENTJ"])
 their_zodiac_sign = st.selectbox("Their zodiac sign:", ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
 
